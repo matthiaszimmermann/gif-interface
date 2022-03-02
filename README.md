@@ -14,7 +14,7 @@ cd git-interface
 Use [Brownie](https://github.com/matthiaszimmermann/brownie-docker) and start a brownie container
 
 ```bash
-docker run -it --rm -v $PWD/0.8:/projects brownie
+docker run -it --rm -v $PWD:/projects brownie
 ```
 
 <!-- docker run -it --rm -v $PWD:/app gif-truffle bash -->
@@ -22,7 +22,6 @@ docker run -it --rm -v $PWD/0.8:/projects brownie
 Inside the brownie container compile the contracts/interfaces
 
 ```bash
-brownie pm install OpenZeppelin/openzeppelin-contracts@4.5.0
 brownie compile
 ```
 

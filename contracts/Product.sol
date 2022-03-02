@@ -3,6 +3,7 @@ pragma solidity ^0.8.0;
 
 import "./RBAC.sol";
 import "./IProductService.sol";
+import "./IRegistryAccess.sol";
 
 abstract contract Product is RBAC {
 
@@ -12,10 +13,11 @@ abstract contract Product is RBAC {
     uint256 public productId;
 
     IProductService public productService;
+    IRegistryAccess public registryAccess;
 
     modifier onlySandbox {
         require(
-            msg.sender == productService.getContractFromRegistry("Sandbox"),
+            msg.sender == registryAccess.getContractFromRegistry("Sandbox"),
             "ERROR:PRO-001:ACCESS_DENIED"
         );
         _;
@@ -23,7 +25,7 @@ abstract contract Product is RBAC {
 
     modifier onlyOracle {
         require(
-            msg.sender == productService.getContractFromRegistry("Query"),
+            msg.sender == registryAccess.getContractFromRegistry("Query"),
             "ERROR:PRO-002:ACCESS_DENIED"
         );
         _;
@@ -32,6 +34,8 @@ abstract contract Product is RBAC {
     constructor(address _productService, bytes32 _name, bytes32 _policyFlow)
     {
         productService = IProductService(_productService);
+        registryAccess = IRegistryAccess(_productService);
+
         productId = _proposeProduct(_name, _policyFlow);
     }
 

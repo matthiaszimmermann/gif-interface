@@ -1,18 +1,20 @@
 // SPDX-License-Identifier: Apache-2.0
 pragma solidity ^0.8.0;
 
-import "./IOracleService.sol";
-import "./RBAC.sol";
 import "./IOracle.sol";
+import "./RBAC.sol";
+import "./IOracleService.sol";
 import "./IOracleOwnerService.sol";
+import "./IRegistryAccess.sol";
 
 abstract contract Oracle is IOracle, RBAC {
     IOracleService public oracleService;
     IOracleOwnerService public oracleOwnerService;
+    IRegistryAccess public registryAccess;
 
     modifier onlyQuery {
         require(
-            msg.sender == oracleService.getContractFromRegistry("Query"),
+            msg.sender == registryAccess.getContractFromRegistry("Query"),
             "ERROR:ORA-001:ACCESS_DENIED"
         );
         _;
@@ -27,6 +29,8 @@ abstract contract Oracle is IOracle, RBAC {
     {
         oracleService = IOracleService(_oracleService);
         oracleOwnerService = IOracleOwnerService(_oracleOwnerService);
+        registryAccess = IRegistryAccess(_oracleService);
+
         uint256 oracleId = oracleOwnerService.proposeOracle(_oracleName);
         oracleOwnerService.proposeOracleToOracleType(_oracleTypeName, oracleId);
     }

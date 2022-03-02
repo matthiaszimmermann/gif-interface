@@ -2,6 +2,7 @@
 pragma solidity ^0.8.0;
 
 interface IProductService {
+    
     function proposeProduct(bytes32 _productName, bytes32 _policyFlow) external returns (uint256 _productId);
     function newApplication(bytes32 _bpKey, bytes calldata _data) external;
     function underwrite(bytes32 _bpKey) external;
@@ -23,5 +24,5 @@ interface IProductService {
         bytes32 _oracleTypeName,
         uint256 _responsibleOracleId
     ) external returns (uint256 _requestId);
-    function getContractFromRegistry(bytes32 _contractName) external view returns (address _contractAddress);
+
 }
