@@ -1,30 +1,38 @@
 # GIF Interface Contracts
 
-This repository holds the necessary contracts and tools to interact with an existing GIF instance.
+This repository holds the necessary interfaces and base contracts to interact with an existing GIF instance.
 
-## Setup
+The repository is not intended to be used on its own.
 
-Clone this repository
+## Clone Repo
 
-```bash
+```
 git clone https://github.com/matthiaszimmermann/gif-interface.git
 cd git-interface
 ```
 
-Use [Brownie](https://github.com/matthiaszimmermann/brownie-docker) and start a brownie container
+## Create Brownie Docker Image
+
+[Brownie](https://eth-brownie.readthedocs.io/en/stable) is used for development of the contracts in this repository.
+
+Alternatively to installing a python development environment and the brownie framework, wokring with Brownie is also possible via Docker.
+For this, build the brownie Docker image as shown below.
+The Dockerfile in this repository is a trimmed down version from [Brownie Github]((https://github.com/eth-brownie/brownie))
+
+```bash
+docker build -t brownie .
+```
+
+## Run Brownie Container
 
 ```bash
 docker run -it --rm -v $PWD:/projects brownie
 ```
 
-<!-- docker run -it --rm -v $PWD:/app gif-truffle bash -->
+## Compile the GIF Interface Contracts
 
 Inside the brownie container compile the contracts/interfaces
 
 ```bash
-brownie compile
+brownie compile --all
 ```
-
-## Project Strucutre
-
-The project structure matches with the [Brownie project structure](https://eth-brownie.readthedocs.io/en/stable/structure.html#structure)

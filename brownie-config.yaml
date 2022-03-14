@@ -18,9 +18,3 @@ compiler:
 dependencies:
     # github dependency format: <owner>/<repository>@<release>
     - OpenZeppelin/openzeppelin-contracts@4.5.0
-
-# exclude Ownable when calculating test coverage
-# https://eth-brownie.readthedocs.io/en/v1.10.3/config.html#exclude_paths
-# reports:
-#   exclude_contracts:
-#     - Ownable
